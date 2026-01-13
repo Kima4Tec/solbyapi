@@ -1,5 +1,6 @@
 ﻿using Application.Dtos.Movies;
 using Application.Interfaces;
+using Domain.Entities;
 
 public class MovieService : IMovieService
 {
