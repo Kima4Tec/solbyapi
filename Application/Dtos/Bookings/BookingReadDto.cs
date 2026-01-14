@@ -13,8 +13,11 @@ namespace Application.Dtos.Bookings
         public int NumberOfTickets { get; set; }
         public DateTime BookedAt { get; set; }
 
-        public string MovieTitle { get; set; } = null!;
+        public string MovieTitle { get; set; }
         public DateTime ShowTime { get; set; }
+
+        public string CustomerName { get; set; }
     }
+
 
 }

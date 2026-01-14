@@ -22,12 +22,11 @@ public class CustomersController : ControllerBase
         var customer = await _service.GetCustomerAsync(id);
         return customer is null ? NotFound() : Ok(customer);
     }
-
     [HttpPost]
     public async Task<IActionResult> Post(CustomerCreateDto dto)
     {
         var id = await _service.CreateCustomerAsync(dto);
-        return CreatedAtAction(nameof(Get), new { id }, null);
+        return Ok(new { id });
     }
 
 

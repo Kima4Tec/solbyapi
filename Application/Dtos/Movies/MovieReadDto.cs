@@ -13,6 +13,9 @@ namespace Application.Dtos.Movies
         public int DurationMinutes { get; set; }
         public int AgeLimit { get; set; }
         public string? Description { get; set; }
+
+
+        public List<string> DirectorNames { get; set; } = new List<string>();
     }
 
 }

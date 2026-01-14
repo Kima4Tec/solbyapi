@@ -35,6 +35,16 @@ public class BookingRepository : IBookingRepository
             .FirstOrDefaultAsync(b => b.Id == id);
     }
 
+    public async Task<List<Booking>> GetAllIncludingShowAndMovieAndCustomerAsync()
+    {
+        return await _context.Bookings
+            .Include(b => b.Show)
+                .ThenInclude(s => s.Movie)
+            .Include(b => b.Customer)
+            .ToListAsync();
+    }
+
+
     public async Task AddAsync(Booking booking)
     {
         _context.Bookings.Add(booking);

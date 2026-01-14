@@ -11,7 +11,7 @@ public interface IBookingRepository
     // Metoder der inkluderer Show og Movie til DTO
     Task<List<Booking>> GetAllIncludingShowAndMovieAsync();
     Task<Booking?> GetByIdIncludingShowAndMovieAsync(Guid id);
-
+    Task<List<Booking>> GetAllIncludingShowAndMovieAndCustomerAsync();
     Task AddAsync(Booking booking);
     Task UpdateAsync(Booking booking);
 }
