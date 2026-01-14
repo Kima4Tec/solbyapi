@@ -13,20 +13,33 @@ public class MovieRepository : IMovieRepository
     }
 
     public Task<List<Movie>> GetAllAsync()
-    { 
-        return _context.Movies.AsNoTracking().ToListAsync(); 
+    {
+        return _context.Movies
+            .Include(m => m.MovieDirectors)
+                .ThenInclude(md => md.Director)
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public Task<Movie?> GetByIdAsync(Guid id)
     {
-        return _context.Movies.AsNoTracking()
-                          .FirstOrDefaultAsync(m => m.Id == id);
+        return _context.Movies
+            .Include(m => m.MovieDirectors)
+                .ThenInclude(md => md.Director)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(m => m.Id == id);
     }
 
     public async Task AddAsync(Movie movie)
     {
         _context.Movies.Add(movie);
         await _context.SaveChangesAsync();
+    }
+    public async Task<List<Director>> GetDirectorsByIdsAsync(List<Guid> ids)
+    {
+        return await _context.Directors
+            .Where(d => ids.Contains(d.Id))
+            .ToListAsync();
     }
 
     public async Task UpdateAsync(Movie movie)

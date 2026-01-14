@@ -16,7 +16,8 @@ namespace Infrastructure.Data
         public DbSet<Show> Shows => Set<Show>();
         public DbSet<Customer> Customers => Set<Customer>();
         public DbSet<Booking> Bookings => Set<Booking>();
-        public DbSet<MovieDirector> MovieDirectors => Set<MovieDirector>();
+        public DbSet<Director> Directors { get; set; } = null!;
+        public DbSet<MovieDirector> MovieDirectors { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

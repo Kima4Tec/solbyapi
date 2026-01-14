@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Dtos.Director;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,8 @@ namespace Application.Dtos.Movies
         public int AgeLimit { get; set; }
         public string? Description { get; set; }
 
-
-        public List<string> DirectorNames { get; set; } = new List<string>();
+        public List<DirectorDto> Directors { get; set; } = new();
     }
+
 
 }

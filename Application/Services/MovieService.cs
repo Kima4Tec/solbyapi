@@ -1,6 +1,8 @@
 ﻿using Application.Dtos.Movies;
+using Application.Dtos.Director;
 using Application.Interfaces;
 using Domain.Entities;
+
 
 public class MovieService : IMovieService
 {
@@ -21,7 +23,14 @@ public class MovieService : IMovieService
             Title = m.Title,
             DurationMinutes = m.DurationMinutes,
             AgeLimit = m.AgeLimit,
-            Description = m.Description
+            Description = m.Description,
+            Directors = m.MovieDirectors
+                         .Select(md => new DirectorDto
+                         {
+                             Id = md.DirectorId,
+                             Name = md.Director.Name
+                         })
+                         .ToList()
         }).ToList();
     }
 
@@ -36,7 +45,14 @@ public class MovieService : IMovieService
             Title = movie.Title,
             DurationMinutes = movie.DurationMinutes,
             AgeLimit = movie.AgeLimit,
-            Description = movie.Description
+            Description = movie.Description,
+            Directors = movie.MovieDirectors
+                         .Select(md => new DirectorDto
+                         {
+                             Id = md.DirectorId,
+                             Name = md.Director.Name
+                         })
+                         .ToList()
         };
     }
 
@@ -51,6 +67,20 @@ public class MovieService : IMovieService
             Description = dto.Description
         };
 
+        if (dto.DirectorIds.Any())
+        {
+            var directors = await _repository.GetDirectorsByIdsAsync(dto.DirectorIds);
+
+            foreach (var director in directors)
+            {
+                movie.MovieDirectors.Add(new MovieDirector
+                {
+                    MovieId = movie.Id,
+                    DirectorId = director.Id
+                });
+            }
+        }
+
         await _repository.AddAsync(movie);
         return movie.Id;
     }
@@ -64,6 +94,23 @@ public class MovieService : IMovieService
         movie.DurationMinutes = dto.DurationMinutes;
         movie.AgeLimit = dto.AgeLimit;
         movie.Description = dto.Description;
+
+
+        if (dto.DirectorIds != null)
+        {
+
+            movie.MovieDirectors.Clear();
+
+            var directors = await _repository.GetDirectorsByIdsAsync(dto.DirectorIds);
+            foreach (var director in directors)
+            {
+                movie.MovieDirectors.Add(new MovieDirector
+                {
+                    MovieId = movie.Id,
+                    DirectorId = director.Id
+                });
+            }
+        }
 
         await _repository.UpdateAsync(movie);
         return true;

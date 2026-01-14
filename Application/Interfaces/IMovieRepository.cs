@@ -12,6 +12,7 @@ namespace Application.Interfaces
         Task<List<Movie>> GetAllAsync();
         Task<Movie?> GetByIdAsync(Guid id);
         Task AddAsync(Movie movie);
+        Task<List<Director>> GetDirectorsByIdsAsync(List<Guid> ids);
         Task UpdateAsync(Movie movie);
     }
 
