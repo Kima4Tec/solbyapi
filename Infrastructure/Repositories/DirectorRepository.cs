@@ -16,4 +16,9 @@ public class DirectorRepository : IDirectorRepository
     {
         return _context.Directors.AsNoTracking().ToListAsync();
     }
+    public async Task AddAsync(Director director)
+    {
+        _context.Directors.Add(director);
+        await _context.SaveChangesAsync();
+    }
 }

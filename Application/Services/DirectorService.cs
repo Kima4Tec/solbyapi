@@ -1,6 +1,7 @@
 ﻿
 using Application.Dtos.Director;
 using Application.Interfaces;
+using Domain.Entities;
 namespace Application.Services
 {
 
@@ -22,6 +23,18 @@ namespace Application.Services
                 Name = d.Name
             }).ToList();
         }
+        public async Task<Guid> CreateDirectorAsync(DirectorCreateDto dto)
+        {
+            var director = new Director
+            {
+                Id = Guid.NewGuid(),
+                Name = dto.Name
+            };
+
+            await _repository.AddAsync(director);
+            return director.Id;
+        }
+
     }
 
 }

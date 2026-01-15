@@ -10,5 +10,6 @@ namespace Application.Interfaces
     public interface IDirectorRepository
     {
         Task<List<Director>> GetAllAsync();
+        Task AddAsync(Director director);
     }
 }
