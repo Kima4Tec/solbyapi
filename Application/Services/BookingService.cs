@@ -1,9 +1,6 @@
 ﻿using Application.Dtos.Bookings;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Extensions;
 
 public class BookingService : IBookingService
 {
@@ -14,26 +11,18 @@ public class BookingService : IBookingService
         _repository = repository;
     }
 
+
+    //Bruger extension metode ToReadDto()
     public async Task<List<BookingReadDto>> GetAllBookingsAsync()
-    {
-        var bookings = await _repository.GetAllIncludingShowMovieHallCinemaAsync();
+{
+    var bookings = await _repository.GetAllIncludingShowMovieHallCinemaAsync();
 
-        return bookings.Select(b => new BookingReadDto
-        {
-            Id = b.Id,
-            ShowId = b.ShowId,
-            NumberOfTickets = b.NumberOfTickets,
-            BookedAt = b.BookedAt,
-            MovieTitle = b.Show.Movie.Title,
-            ShowTime = b.Show.StartTime,
-            CustomerName = b.Customer?.Name ?? "Ukendt",
-            HallName = b.Show.Hall.Name,
-            CinemaName = b.Show.Hall.Cinema.Name
-        }).ToList();
-    }
+    return bookings.Select(b => b.ToReadDto()).ToList();
+}
 
 
-    public async Task<List<BookingReadDto>> GetBookingsAsync()
+
+public async Task<List<BookingReadDto>> GetBookingsAsync()
     {
         var bookings = await _repository.GetAllIncludingShowAndMovieAndCustomerAsync();
 
