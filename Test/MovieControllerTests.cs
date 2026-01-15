@@ -1,12 +1,8 @@
-﻿using Xunit;                       // Bruges til test-framework (xUnit)
-using NSubstitute;                  // Bruges til at mocke interfaces og services
-using Application.Interfaces;       // Her ligger IMovieService
+﻿using API.Controllers;              // Controller-klassen vi tester
 using Application.Dtos.Movies;      // DTO'er til movies
+using Application.Interfaces;       // Her ligger IMovieService
 using Microsoft.AspNetCore.Mvc;     // Bruges til ActionResult-typer (OkObjectResult, NotFoundResult)
-using API.Controllers;              // Controller-klassen vi tester
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using NSubstitute;                  // Bruges til at mocke interfaces og services
 
 public class MoviesControllerTests
 {
