@@ -43,6 +43,20 @@ public class BookingRepository : IBookingRepository
             .Include(b => b.Customer)
             .ToListAsync();
     }
+    public Task<List<Booking>> GetAllIncludingShowMovieHallCinemaAsync()
+    {
+        return _context.Bookings
+            .Include(b => b.Show)
+                .ThenInclude(s => s.Movie)
+            .Include(b => b.Show)
+                .ThenInclude(s => s.Hall)
+                    .ThenInclude(h => h.Cinema)
+            .Include(b => b.Customer)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+
 
 
     public async Task AddAsync(Booking booking)

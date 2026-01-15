@@ -17,6 +17,9 @@ namespace Application.Dtos.Bookings
         public DateTime ShowTime { get; set; }
 
         public string CustomerName { get; set; }
+
+        public string CinemaName { get; set; } = null!;
+        public string HallName { get; set; } = null!;
     }
 
 

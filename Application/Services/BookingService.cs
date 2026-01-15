@@ -14,20 +14,24 @@ public class BookingService : IBookingService
         _repository = repository;
     }
 
-    //public async Task<List<BookingReadDto>> GetBookingsAsync()
-    //{
-    //    var bookings = await _repository.GetAllIncludingShowAndMovieAsync();
+    public async Task<List<BookingReadDto>> GetAllBookingsAsync()
+    {
+        var bookings = await _repository.GetAllIncludingShowMovieHallCinemaAsync();
 
-    //    return bookings.Select(b => new BookingReadDto
-    //    {
-    //        Id = b.Id,
-    //        ShowId = b.ShowId,
-    //        NumberOfTickets = b.NumberOfTickets,
-    //        BookedAt = b.BookedAt,
-    //        MovieTitle = b.Show.Movie.Title,
-    //        ShowTime = b.Show.StartTime
-    //    }).ToList();
-    //}
+        return bookings.Select(b => new BookingReadDto
+        {
+            Id = b.Id,
+            ShowId = b.ShowId,
+            NumberOfTickets = b.NumberOfTickets,
+            BookedAt = b.BookedAt,
+            MovieTitle = b.Show.Movie.Title,
+            ShowTime = b.Show.StartTime,
+            CustomerName = b.Customer?.Name ?? "Ukendt",
+            HallName = b.Show.Hall.Name,
+            CinemaName = b.Show.Hall.Cinema.Name
+        }).ToList();
+    }
+
 
     public async Task<List<BookingReadDto>> GetBookingsAsync()
     {
@@ -41,7 +45,7 @@ public class BookingService : IBookingService
             BookedAt = b.BookedAt,
             MovieTitle = b.Show.Movie.Title,
             ShowTime = b.Show.StartTime,
-            CustomerName = b.Customer?.Name ?? "Ukendt"
+            CustomerName = b.Customer?.Name ?? "Ukendt",
         }).ToList();
     }
 

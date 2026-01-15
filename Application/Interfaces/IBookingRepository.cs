@@ -12,6 +12,7 @@ public interface IBookingRepository
     Task<List<Booking>> GetAllIncludingShowAndMovieAsync();
     Task<Booking?> GetByIdIncludingShowAndMovieAsync(Guid id);
     Task<List<Booking>> GetAllIncludingShowAndMovieAndCustomerAsync();
+    Task<List<Booking>> GetAllIncludingShowMovieHallCinemaAsync();
     Task AddAsync(Booking booking);
     Task UpdateAsync(Booking booking);
 }

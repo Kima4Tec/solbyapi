@@ -12,9 +12,15 @@ public class BookingsController : ControllerBase
         _service = service;
     }
 
+    //[HttpGet]
+    //public async Task<ActionResult<List<BookingReadDto>>> Get()
+    //    => Ok(await _service.GetBookingsAsync());
     [HttpGet]
     public async Task<ActionResult<List<BookingReadDto>>> Get()
-        => Ok(await _service.GetBookingsAsync());
+    {
+        var bookings = await _service.GetAllBookingsAsync();
+        return Ok(bookings);
+    }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<BookingReadDto>> Get(Guid id)
